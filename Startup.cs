@@ -14,6 +14,10 @@ namespace PayPayCore
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews();
+         
+            services.AddRazorPages();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -23,12 +27,17 @@ namespace PayPayCore
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseStaticFiles();
 
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
-                
+                endpoints.MapControllerRoute(
+                        name: "default",
+                        pattern: "{controller=Cart}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
+
             });
         }
     }
